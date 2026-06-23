@@ -2,7 +2,7 @@ name: Build & Validate
 
 on:
   push:
-    branches: [main, master, RenJB, "feature/*", "fix/*"]
+    branches: [main, master, HKDataRelaySever, "feature/*", "fix/*"]
   pull_request:
     branches: [main, master]
   workflow_dispatch:   # 允许手动触发
@@ -43,14 +43,22 @@ jobs:
       - name: 构建
         run: cmake --build "${{ env.CMAKE_BUILD_DIR }}" --config ${{ matrix.build_type }} --parallel
 
+      - name: 部署 (windeployqt)
+        if: matrix.build_type == 'Release'
+        run: |
+          $exe = "${{ env.CMAKE_BUILD_DIR }}/Release/HKDataRelaysever.exe"
+          $staging = "${{ env.CMAKE_BUILD_DIR }}/deploy"
+          mkdir $staging -Force
+          Copy-Item $exe $staging
+          Copy-Item "${{ github.workspace }}/config" "$staging/config" -Recurse
+          windeployqt --release "$staging/HKDataRelaysever.exe"
+
       - name: 上传构建产物 (Release)
         if: matrix.build_type == 'Release'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-win64
-          path: |
-            ${{ env.CMAKE_BUILD_DIR }}/Release/HKDataRelaysever.exe
-            ${{ env.CMAKE_BUILD_DIR }}/config/
+          path: ${{ env.CMAKE_BUILD_DIR }}/deploy/**
           retention-days: 7
 
   # ── 代码质量检查 ──────────────────────────────────────────────────────────
