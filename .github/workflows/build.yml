@@ -38,14 +38,10 @@ jobs:
           cache-key-prefix: ${{ runner.os }}-qt6
 
       - name: 配置 CMake
-        run: >
-          cmake -S ${{ github.workspace }}
-                -B ${{ env.CMAKE_BUILD_DIR }}
-                -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-                -DCMAKE_PREFIX_PATH=${{ env.Qt6_DIR }}
+        run: cmake -S "${{ github.workspace }}" -B "${{ env.CMAKE_BUILD_DIR }}" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_PREFIX_PATH="${{ env.Qt6_DIR }}"
 
       - name: 构建
-        run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --config ${{ matrix.build_type }} --parallel
+        run: cmake --build "${{ env.CMAKE_BUILD_DIR }}" --config ${{ matrix.build_type }} --parallel
 
       - name: 上传构建产物 (Release)
         if: matrix.build_type == 'Release'
