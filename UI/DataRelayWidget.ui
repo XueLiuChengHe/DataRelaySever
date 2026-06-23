@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DataRelayWidget</class>
+ <widget class="QWidget" name="DataRelayWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>数据中继监控</string>
+  </property>
+  <layout class="QVBoxLayout" name="layoutMain">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+
+   <item>
+    <widget class="QWidget" name="widgetTitleBar" native="true">
+     <layout class="QHBoxLayout" name="layoutTitleBar">
+      <property name="leftMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QLabel" name="labelTitle">
+        <property name="text"><string>数据中继监控面板</string></property>
+        <property name="styleSheet"><string notr="true">font-size:16px; font-weight:bold; color:#cba6f7;</string></property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="spacerTitle">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0">
+         <size><width>40</width><height>20</height></size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelTotalRev">
+        <property name="text"><string>总收包: 0</string></property>
+        <property name="styleSheet"><string notr="true">color:#a6e3a1; font-weight:bold;</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frameSepTitle">
+        <property name="frameShape"><enum>QFrame::VLine</enum></property>
+        <property name="frameShadow"><enum>QFrame::Sunken</enum></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelTotalSend">
+        <property name="text"><string>总发包: 0</string></property>
+        <property name="styleSheet"><string notr="true">color:#89b4fa; font-weight:bold;</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QFrame" name="frameHSep">
+     <property name="frameShape"><enum>QFrame::HLine</enum></property>
+     <property name="frameShadow"><enum>QFrame::Sunken</enum></property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QTabWidget" name="tabWidgetTrains">
+     <property name="tabPosition"><enum>QTabWidget::North</enum></property>
+     <property name="currentIndex"><number>0</number></property>
+
+     <widget class="QWidget" name="tabTrain01">
+      <attribute name="title"><string>列车 01</string></attribute>
+      <layout class="QHBoxLayout" name="layoutTrain01">
+       <property name="spacing"><number>10</number></property>
+       <property name="leftMargin"><number>6</number></property>
+       <property name="topMargin"><number>6</number></property>
+       <property name="rightMargin"><number>6</number></property>
+       <property name="bottomMargin"><number>6</number></property>
+
+       <item>
+        <widget class="QScrollArea" name="scrollSim01">
+         <property name="widgetResizable"><bool>true</bool></property>
+         <property name="styleSheet"><string notr="true">border:none;</string></property>
+         <widget class="QWidget" name="scrollSimContents01">
+          <property name="geometry">
+           <rect><x>0</x><y>0</y><width>560</width><height>1000</height></rect>
+          </property>
+          <layout class="QVBoxLayout" name="vLayoutSim01">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <widget class="QGroupBox" name="grpSim01">
+             <property name="title"><string>Simulator (接收)</string></property>
+             <property name="styleSheet">
+              <string notr="true">QGroupBox{border:1px solid #45475a;border-radius:6px;margin-top:8px;padding-top:6px;font-weight:bold;color:#89b4fa;}</string>
+             </property>
+             <layout class="QFormLayout" name="formSim01">
+              <property name="horizontalSpacing"><number>12</number></property>
+              <property name="verticalSpacing"><number>4</number></property>
+
+              <item row="0" column="0"><widget class="QLabel" name="lbS01_h0"><property name="text"><string>包序号</string></property></widget></item>
+              <item row="0" column="1"><widget class="QLabel" name="lbS01_seqnum"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="1" column="0"><widget class="QLabel" name="lbS01_h1"><property name="text"><string>消息类型</string></property></widget></item>
+              <item row="1" column="1"><widget class="QLabel" name="lbS01_packet_type"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="2" column="0"><widget class="QLabel" name="lbS01_h2"><property name="text"><string>列车编号</string></property></widget></item>
+              <item row="2" column="1"><widget class="QLabel" name="lbS01_train_code"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="3" column="0"><widget class="QLabel" name="lbS01_h3"><property name="text"><string>方向</string></property></widget></item>
+              <item row="3" column="1"><widget class="QLabel" name="lbS01_direction"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="4" column="0"><widget class="QLabel" name="lbS01_h4"><property name="text"><string>速度 km/h</string></property></widget></item>
+              <item row="4" column="1"><widget class="QLabel" name="lbS01_speed"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="5" column="0"><widget class="QLabel" name="lbS01_h5"><property name="text"><string>轨道编号</string></property></widget></item>
+              <item row="5" column="1"><widget class="QLabel" name="lbS01_track_code"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="6" column="0"><widget class="QLabel" name="lbS01_h6"><property name="text"><string>公里标</string></property></widget></item>
+              <item row="6" column="1"><widget class="QLabel" name="lbS01_landmark"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="7" column="0"><widget class="QLabel" name="lbS01_h7"><property name="text"><string>轨道偏移量</string></property></widget></item>
+              <item row="7" column="1"><widget class="QLabel" name="lbS01_offset_scale"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="8" column="0"><widget class="QLabel" name="lbS01_h8"><property name="text"><string>TC1 激活</string></property></widget></item>
+              <item row="8" column="1"><widget class="QLabel" name="lbS01_TC1_act"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="9" column="0"><widget class="QLabel" name="lbS01_h9"><property name="text"><string>TC2 激活</string></property></widget></item>
+              <item row="9" column="1"><widget class="QLabel" name="lbS01_TC2_act"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="10" column="0"><widget class="QLabel" name="lbS01_h10"><property name="text"><string>主驾前进</string></property></widget></item>
+              <item row="10" column="1"><widget class="QLabel" name="lbS01_cab_forward"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="11" column="0"><widget class="QLabel" name="lbS01_h11"><property name="text"><string>主驾后退</string></property></widget></item>
+              <item row="11" column="1"><widget class="QLabel" name="lbS01_cab_reverse"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="12" column="0"><widget class="QLabel" name="lbS01_h12"><property name="text"><string>牵引</string></property></widget></item>
+              <item row="12" column="1"><widget class="QLabel" name="lbS01_traction"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="13" column="0"><widget class="QLabel" name="lbS01_h13"><property name="text"><string>制动</string></property></widget></item>
+              <item row="13" column="1"><widget class="QLabel" name="lbS01_braking"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="14" column="0"><widget class="QLabel" name="lbS01_h14"><property name="text"><string>滑行</string></property></widget></item>
+              <item row="14" column="1"><widget class="QLabel" name="lbS01_coasting"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="15" column="0"><widget class="QLabel" name="lbS01_h15"><property name="text"><string>EB 施加</string></property></widget></item>
+              <item row="15" column="1"><widget class="QLabel" name="lbS01_EB_applied"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="16" column="0"><widget class="QLabel" name="lbS01_h16"><property name="text"><string>ATO 释放</string></property></widget></item>
+              <item row="16" column="1"><widget class="QLabel" name="lbS01_ATO_release"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="17" column="0"><widget class="QLabel" name="lbS01_h17"><property name="text"><string>牵引使能</string></property></widget></item>
+              <item row="17" column="1"><widget class="QLabel" name="lbS01_traction_en"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="18" column="0"><widget class="QLabel" name="lbS01_h18"><property name="text"><string>TC1 钥匙</string></property></widget></item>
+              <item row="18" column="1"><widget class="QLabel" name="lbS01_TC1_key"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="19" column="0"><widget class="QLabel" name="lbS01_h19"><property name="text"><string>TC2 钥匙</string></property></widget></item>
+              <item row="19" column="1"><widget class="QLabel" name="lbS01_TC2_key"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="20" column="0"><widget class="QLabel" name="lbS01_h20"><property name="text"><string>列车模式升降</string></property></widget></item>
+              <item row="20" column="1"><widget class="QLabel" name="lbS01_mode_set"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="21" column="0"><widget class="QLabel" name="lbS01_h21"><property name="text"><string>TC1 ATP切除</string></property></widget></item>
+              <item row="21" column="1"><widget class="QLabel" name="lbS01_TC1_ATP_cut"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="22" column="0"><widget class="QLabel" name="lbS01_h22"><property name="text"><string>TC2 ATP切除</string></property></widget></item>
+              <item row="22" column="1"><widget class="QLabel" name="lbS01_TC2_ATP_cut"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="23" column="0"><widget class="QLabel" name="lbS01_h23"><property name="text"><string>ATO启动PB TC1</string></property></widget></item>
+              <item row="23" column="1"><widget class="QLabel" name="lbS01_TC1_ATO_PB"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="24" column="0"><widget class="QLabel" name="lbS01_h24"><property name="text"><string>ATO启动PB TC2</string></property></widget></item>
+              <item row="24" column="1"><widget class="QLabel" name="lbS01_TC2_ATO_PB"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="25" column="0"><widget class="QLabel" name="lbS01_h25"><property name="text"><string>自动切端PB TC1</string></property></widget></item>
+              <item row="25" column="1"><widget class="QLabel" name="lbS01_TC1_change_PB"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="26" column="0"><widget class="QLabel" name="lbS01_h26"><property name="text"><string>自动切端PB TC2</string></property></widget></item>
+              <item row="26" column="1"><widget class="QLabel" name="lbS01_TC2_change_PB"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="27" column="0"><widget class="QLabel" name="lbS01_h27"><property name="text"><string>TC1 门模式</string></property></widget></item>
+              <item row="27" column="1"><widget class="QLabel" name="lbS01_TC1_door_mode"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="28" column="0"><widget class="QLabel" name="lbS01_h28"><property name="text"><string>TC2 门模式</string></property></widget></item>
+              <item row="28" column="1"><widget class="QLabel" name="lbS01_TC2_door_mode"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="29" column="0"><widget class="QLabel" name="lbS01_h29"><property name="text"><string>sim 故障状态</string></property></widget></item>
+              <item row="29" column="1"><widget class="QLabel" name="lbS01_sim_ats_fault"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="30" column="0"><widget class="QLabel" name="lbS01_h30"><property name="text"><string>A侧门关闭状态</string></property></widget></item>
+              <item row="30" column="1"><widget class="QLabel" name="lbS01_A_door_close"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="31" column="0"><widget class="QLabel" name="lbS01_h31"><property name="text"><string>A侧门开门请求</string></property></widget></item>
+              <item row="31" column="1"><widget class="QLabel" name="lbS01_A_door_open"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="32" column="0"><widget class="QLabel" name="lbS01_h32"><property name="text"><string>A侧门关门请求</string></property></widget></item>
+              <item row="32" column="1"><widget class="QLabel" name="lbS01_A_door_close_req"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="33" column="0"><widget class="QLabel" name="lbS01_h33"><property name="text"><string>B侧门关闭状态</string></property></widget></item>
+              <item row="33" column="1"><widget class="QLabel" name="lbS01_B_door_close"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="34" column="0"><widget class="QLabel" name="lbS01_h34"><property name="text"><string>B侧门开门请求</string></property></widget></item>
+              <item row="34" column="1"><widget class="QLabel" name="lbS01_B_door_open"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="35" column="0"><widget class="QLabel" name="lbS01_h35"><property name="text"><string>B侧门关门请求</string></property></widget></item>
+              <item row="35" column="1"><widget class="QLabel" name="lbS01_B_door_close_req"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="36" column="0"><widget class="QLabel" name="lbS01_h36"><property name="text"><string>收包总数</string></property></widget></item>
+              <item row="36" column="1">
+               <widget class="QLabel" name="lbS01_rev_count">
+                <property name="text"><string>0</string></property>
+                <property name="styleSheet"><string notr="true">color:#f9e2af; font-weight:bold; font-size:13px;</string></property>
+               </widget>
+              </item>
+
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+
+       <item>
+        <widget class="QFrame" name="frameSepV01">
+         <property name="frameShape"><enum>QFrame::VLine</enum></property>
+         <property name="frameShadow"><enum>QFrame::Sunken</enum></property>
+        </widget>
+       </item>
+
+       <item>
+        <widget class="QScrollArea" name="scrollATS01">
+         <property name="widgetResizable"><bool>true</bool></property>
+         <property name="styleSheet"><string notr="true">border:none;</string></property>
+         <widget class="QWidget" name="scrollATSContents01">
+          <property name="geometry">
+           <rect><x>0</x><y>0</y><width>560</width><height>1200</height></rect>
+          </property>
+          <layout class="QVBoxLayout" name="vLayoutATS01">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <widget class="QGroupBox" name="grpATS01">
+             <property name="title"><string>ATS (发送)</string></property>
+             <property name="styleSheet">
+              <string notr="true">QGroupBox{border:1px solid #45475a;border-radius:6px;margin-top:8px;padding-top:6px;font-weight:bold;color:#89b4fa;}</string>
+             </property>
+             <layout class="QFormLayout" name="formATS01">
+              <property name="horizontalSpacing"><number>12</number></property>
+              <property name="verticalSpacing"><number>4</number></property>
+
+              <item row="0" column="0"><widget class="QLabel" name="lbA01_h0"><property name="text"><string>列车号</string></property></widget></item>
+              <item row="0" column="1"><widget class="QLabel" name="lbA01_train_code"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="1" column="0"><widget class="QLabel" name="lbA01_h1"><property name="text"><string>当前车模式</string></property></widget></item>
+              <item row="1" column="1"><widget class="QLabel" name="lbA01_car_mode"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="2" column="0"><widget class="QLabel" name="lbA01_h2"><property name="text"><string>当前运行模式</string></property></widget></item>
+              <item row="2" column="1"><widget class="QLabel" name="lbA01_op_mode"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="3" column="0"><widget class="QLabel" name="lbA01_h3"><property name="text"><string>ATS发出故障</string></property></widget></item>
+              <item row="3" column="1"><widget class="QLabel" name="lbA01_ats_fault"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="4" column="0"><widget class="QLabel" name="lbA01_h4"><property name="text"><string>A侧门使能</string></property></widget></item>
+              <item row="4" column="1"><widget class="QLabel" name="lbA01_A_door_enable"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="5" column="0"><widget class="QLabel" name="lbA01_h5"><property name="text"><string>A侧门开指令</string></property></widget></item>
+              <item row="5" column="1"><widget class="QLabel" name="lbA01_A_door_open"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="6" column="0"><widget class="QLabel" name="lbA01_h6"><property name="text"><string>A侧门关指令</string></property></widget></item>
+              <item row="6" column="1"><widget class="QLabel" name="lbA01_A_door_close"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="7" column="0"><widget class="QLabel" name="lbA01_h7"><property name="text"><string>B侧门使能</string></property></widget></item>
+              <item row="7" column="1"><widget class="QLabel" name="lbA01_B_door_enable"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="8" column="0"><widget class="QLabel" name="lbA01_h8"><property name="text"><string>B侧门开指令</string></property></widget></item>
+              <item row="8" column="1"><widget class="QLabel" name="lbA01_B_door_open"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="9" column="0"><widget class="QLabel" name="lbA01_h9"><property name="text"><string>B侧门关指令</string></property></widget></item>
+              <item row="9" column="1"><widget class="QLabel" name="lbA01_B_door_close"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="10" column="0"><widget class="QLabel" name="lbA01_h10"><property name="text"><string>ATP EB指令</string></property></widget></item>
+              <item row="10" column="1"><widget class="QLabel" name="lbA01_ATP_EB"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="11" column="0"><widget class="QLabel" name="lbA01_h11"><property name="text"><string>ATO激活</string></property></widget></item>
+              <item row="11" column="1"><widget class="QLabel" name="lbA01_ATO_activate"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="12" column="0"><widget class="QLabel" name="lbA01_h12"><property name="text"><string>ATO就绪</string></property></widget></item>
+              <item row="12" column="1"><widget class="QLabel" name="lbA01_ATO_avail"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="13" column="0"><widget class="QLabel" name="lbA01_h13"><property name="text"><string>ATO牵引指令</string></property></widget></item>
+              <item row="13" column="1"><widget class="QLabel" name="lbA01_ATO_traction"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="14" column="0"><widget class="QLabel" name="lbA01_h14"><property name="text"><string>ATO制动指令</string></property></widget></item>
+              <item row="14" column="1"><widget class="QLabel" name="lbA01_ATO_brake"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="15" column="0"><widget class="QLabel" name="lbA01_h15"><property name="text"><string>自动折返指令</string></property></widget></item>
+              <item row="15" column="1"><widget class="QLabel" name="lbA01_change_ends"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="16" column="0"><widget class="QLabel" name="lbA01_h16"><property name="text"><string>自动折返激活</string></property></widget></item>
+              <item row="16" column="1"><widget class="QLabel" name="lbA01_changeend_act"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="17" column="0"><widget class="QLabel" name="lbA01_h17"><property name="text"><string>自动折返就绪</string></property></widget></item>
+              <item row="17" column="1"><widget class="QLabel" name="lbA01_changeend_avail"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="18" column="0"><widget class="QLabel" name="lbA01_h18"><property name="text"><string>ATO推荐速度</string></property></widget></item>
+              <item row="18" column="1"><widget class="QLabel" name="lbA01_ATO_speed"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="19" column="0"><widget class="QLabel" name="lbA01_h19"><property name="text"><string>制动标志</string></property></widget></item>
+              <item row="19" column="1"><widget class="QLabel" name="lbA01_brake_sign"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="20" column="0"><widget class="QLabel" name="lbA01_h20"><property name="text"><string>列车当前速度</string></property></widget></item>
+              <item row="20" column="1"><widget class="QLabel" name="lbA01_run_speed"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="21" column="0"><widget class="QLabel" name="lbA01_h21"><property name="text"><string>ATP推荐速度</string></property></widget></item>
+              <item row="21" column="1"><widget class="QLabel" name="lbA01_ATP_speed"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="22" column="0"><widget class="QLabel" name="lbA01_h22"><property name="text"><string>EM制动触发速度</string></property></widget></item>
+              <item row="22" column="1"><widget class="QLabel" name="lbA01_EM_speed"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="23" column="0"><widget class="QLabel" name="lbA01_h23"><property name="text"><string>牵引制动状态</string></property></widget></item>
+              <item row="23" column="1"><widget class="QLabel" name="lbA01_drive_state"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="24" column="0"><widget class="QLabel" name="lbA01_h24"><property name="text"><string>列车折返状态</string></property></widget></item>
+              <item row="24" column="1"><widget class="QLabel" name="lbA01_turn_back"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="25" column="0"><widget class="QLabel" name="lbA01_h25"><property name="text"><string>车辆段位置</string></property></widget></item>
+              <item row="25" column="1"><widget class="QLabel" name="lbA01_pos_depot"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="26" column="0"><widget class="QLabel" name="lbA01_h26"><property name="text"><string>下一站跳停</string></property></widget></item>
+              <item row="26" column="1"><widget class="QLabel" name="lbA01_next_skip"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="27" column="0"><widget class="QLabel" name="lbA01_h27"><property name="text"><string>当前站扣车</string></property></widget></item>
+              <item row="27" column="1"><widget class="QLabel" name="lbA01_cur_detain"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="28" column="0"><widget class="QLabel" name="lbA01_h28"><property name="text"><string>停车状态</string></property></widget></item>
+              <item row="28" column="1"><widget class="QLabel" name="lbA01_station_stop"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="29" column="0"><widget class="QLabel" name="lbA01_h29"><property name="text"><string>剩余停站时间</string></property></widget></item>
+              <item row="29" column="1"><widget class="QLabel" name="lbA01_dwell_time"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="30" column="0"><widget class="QLabel" name="lbA01_h30"><property name="text"><string>屏蔽门状态</string></property></widget></item>
+              <item row="30" column="1"><widget class="QLabel" name="lbA01_PSD"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="31" column="0"><widget class="QLabel" name="lbA01_h31"><property name="text"><string>提示关闭车门</string></property></widget></item>
+              <item row="31" column="1"><widget class="QLabel" name="lbA01_close_door_info"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="32" column="0"><widget class="QLabel" name="lbA01_h32"><property name="text"><string>发车请求</string></property></widget></item>
+              <item row="32" column="1"><widget class="QLabel" name="lbA01_dep_req"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="33" column="0"><widget class="QLabel" name="lbA01_h33"><property name="text"><string>车次号</string></property></widget></item>
+              <item row="33" column="1"><widget class="QLabel" name="lbA01_unit_number"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="34" column="0"><widget class="QLabel" name="lbA01_h34"><property name="text"><string>目的地号</string></property></widget></item>
+              <item row="34" column="1"><widget class="QLabel" name="lbA01_dest_number"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="35" column="0"><widget class="QLabel" name="lbA01_h35"><property name="text"><string>车次实时编号</string></property></widget></item>
+              <item row="35" column="1"><widget class="QLabel" name="lbA01_real_number"><property name="text"><string>-</string></property></widget></item>
+
+              <item row="36" column="0"><widget class="QLabel" name="lbA01_h36"><property name="text"><string>发包总数</string></property></widget></item>
+              <item row="36" column="1">
+               <widget class="QLabel" name="lbA01_send_count">
+                <property name="text"><string>0</string></property>
+                <property name="styleSheet"><string notr="true">color:#f9e2af; font-weight:bold; font-size:13px;</string></property>
+               </widget>
+              </item>
+
+              <item row="37" column="0">
+               <widget class="QLabel" name="lbA01_h37">
+                <property name="text"><string>道岔 (选编号)</string></property>
+               </widget>
+              </item>
+              <item row="37" column="1">
+               <widget class="QComboBox" name="lbA01_turnout_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox{background:#313244;color:#cdd6f4;border:1px solid #45475a;border-radius:3px;padding:1px 4px;min-width:110px;}QComboBox::drop-down{border:none;}QComboBox QAbstractItemView{background:#313244;color:#cdd6f4;selection-background-color:#45475a;}</string>
+                </property>
+               </widget>
+              </item>
+
+              <item row="38" column="0">
+               <widget class="QLabel" name="lbA01_h38">
+                <property name="text"><string>道岔状态值</string></property>
+               </widget>
+              </item>
+              <item row="38" column="1">
+               <widget class="QLabel" name="lbA01_turnout_value">
+                <property name="text"><string>-</string></property>
+               </widget>
+              </item>
+
+              <item row="39" column="0">
+               <widget class="QLabel" name="lbA01_h39">
+                <property name="text"><string>信号机 (选编号)</string></property>
+               </widget>
+              </item>
+              <item row="39" column="1">
+               <widget class="QComboBox" name="lbA01_signal_combo">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox{background:#313244;color:#cdd6f4;border:1px solid #45475a;border-radius:3px;padding:1px 4px;min-width:110px;}QComboBox::drop-down{border:none;}QComboBox QAbstractItemView{background:#313244;color:#cdd6f4;selection-background-color:#45475a;}</string>
+                </property>
+               </widget>
+              </item>
+
+              <item row="40" column="0">
+               <widget class="QLabel" name="lbA01_h40">
+                <property name="text"><string>信号机状态值</string></property>
+               </widget>
+              </item>
+              <item row="40" column="1">
+               <widget class="QLabel" name="lbA01_signal_value">
+                <property name="text"><string>-</string></property>
+               </widget>
+              </item>
+
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+
+      </layout>
+     </widget>
+
+    </widget>
+   </item>
+
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

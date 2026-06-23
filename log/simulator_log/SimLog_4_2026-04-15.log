@@ -1,0 +1,52 @@
+4-2026-04-15 18:11:59:122:{
+    "device_type": 2,
+    "message_seqnum": 0,
+    "packet_type": "Sim_Train_Info",
+    "payload": {
+        "ATO_info": {
+            "TC1_ATO_start_PB": false,
+            "TC1_ATP_cutout": false,
+            "TC1_auto_change_end_PB": false,
+            "TC1_door_mode": "3",
+            "TC2_ATO_start_PB": false,
+            "TC2_ATP_cutout": false,
+            "TC2_auto_change_end_PB": false,
+            "TC2_door_mode": "3",
+            "sim_ats_fault": "normal"
+        },
+        "cab_control_info": {
+            "ATO_release": false,
+            "EB_applied": false,
+            "TC1_activated": true,
+            "TC1_key_state": false,
+            "TC2_activated": false,
+            "TC2_key_state": false,
+            "active_cab_forward_state": false,
+            "active_cab_reverse_state": false,
+            "traction_enabled": false,
+            "train_braking": false,
+            "train_coasting": false,
+            "train_mode_set": "none",
+            "train_traction": false
+        },
+        "door_control": {
+            "A_door_close_request": false,
+            "A_door_open_request": false,
+            "A_doors_close_state": false,
+            "B_door_close_request": false,
+            "B_door_open_request": false,
+            "B_doors_close_state": false
+        },
+        "train_basic_info": {
+            "direction": "up",
+            "landmark": "100",
+            "offset_scale": 5000,
+            "track_code": "101000141",
+            "train_code": "30",
+            "train_speed_km_per_h": 0
+        }
+    },
+    "request_id": "",
+    "session_instance_id": "12395678"
+}
+已发送

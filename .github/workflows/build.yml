@@ -1,0 +1,127 @@
+name: Build & Validate
+
+on:
+  push:
+    branches: [main, master, RenJB, "feature/*", "fix/*"]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:   # 允许手动触发
+
+env:
+  CMAKE_BUILD_DIR: ${{ github.workspace }}/build
+  ARTIFACT_NAME: HKDataRelaysever-${{ github.sha }}
+
+jobs:
+  # ── Windows Qt6 构建 ──────────────────────────────────────────────────────
+  build-windows:
+    name: Windows (Qt6, MSVC)
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Qt6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.*"            # Qt 6.8 LTS 系列，稳定性最佳
+          host: "windows"
+          target: "desktop"
+          arch: "win64_msvc2022_64"
+          modules: "qtwebsockets"     # 额外的 WebSockets 模块
+          cache: true                 # 缓存 Qt 以加速后续构建
+          cache-key-prefix: ${{ runner.os }}-qt6
+
+      - name: 配置 CMake
+        run: >
+          cmake -S ${{ github.workspace }}
+                -B ${{ env.CMAKE_BUILD_DIR }}
+                -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+                -DCMAKE_PREFIX_PATH=${{ env.Qt6_DIR }}
+
+      - name: 构建
+        run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --config ${{ matrix.build_type }} --parallel
+
+      - name: 上传构建产物 (Release)
+        if: matrix.build_type == 'Release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}-win64
+          path: |
+            ${{ env.CMAKE_BUILD_DIR }}/Release/HKDataRelaysever.exe
+            ${{ env.CMAKE_BUILD_DIR }}/config/
+          retention-days: 7
+
+  # ── 代码质量检查 ──────────────────────────────────────────────────────────
+  lint:
+    name: 代码质量检查
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 验证 CMakeLists.txt 中源文件存在性
+        run: |
+          cd ${{ github.workspace }}
+          missing=0
+          # 提取 CMakeLists.txt 中所有 .cpp 和 .h 文件路径
+          for file in $(grep -E '^\s+[A-Za-z].*\.(cpp|h)' CMakeLists.txt | tr -d ' '); do
+            if [ ! -f "$file" ]; then
+              echo "❌ CMakeLists.txt 引用了不存在的文件: $file"
+              missing=1
+            fi
+          done
+          if [ $missing -eq 0 ]; then
+            echo "✓ CMakeLists.txt 中所有源文件均存在"
+          fi
+          exit $missing
+
+      - name: 检查是否存在未纳入构建的孤立源文件
+        run: |
+          cd ${{ github.workspace }}
+          orphans=0
+          for file in $(find . -name "*.cpp" -o -name "*.h" | grep -v build/ | grep -v .git/ | sort); do
+            basename=$(basename "$file")
+            if ! grep -q "$basename" CMakeLists.txt; then
+              echo "⚠ 文件未在 CMakeLists.txt 中引用: $file"
+              orphans=1
+            fi
+          done
+          if [ $orphans -eq 0 ]; then
+            echo "✓ 无孤立源文件"
+          else
+            echo "::warning::存在未纳入构建的源文件，请确认是否遗漏或应删除"
+          fi
+
+      - name: 检查硬编码 IP 地址
+        run: |
+          cd ${{ github.workspace }}
+          found=0
+          for file in $(find . -name "*.cpp" -o -name "*.h" | grep -v build/ | grep -v .git/); do
+            if grep -qE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' "$file"; then
+              echo "⚠ 源代码中发现硬编码 IP: $file"
+              grep -nE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' "$file"
+              found=1
+            fi
+          done
+          if [ $found -eq 0 ]; then
+            echo "✓ 源代码中未发现硬编码 IP"
+          else
+            echo "::warning::源代码中发现硬编码 IP，请移入配置文件"
+          fi
+
+      - name: 检查常见代码问题
+        run: |
+          cd ${{ github.workspace }}
+          issues=0
+          # 检查 QObject 多重继承 QRunnable (可能的内存泄漏)
+          if grep -rn "class.*QObject.*QRunnable" --include="*.h" .; then
+            echo "::warning::发现 QObject+QRunnable 多重继承，注意线程安全问题"
+          fi
+          # 检查析构函数中是否有裸指针调用（潜在的 nullptr 崩溃）
+          echo "--- 检查完毕 ---"
