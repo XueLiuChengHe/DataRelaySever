@@ -1,6 +1,7 @@
 #include <ATSAutomaticTrainInfoJsonMsg.h>
 
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonParseError>
 
 

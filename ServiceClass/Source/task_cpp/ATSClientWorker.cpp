@@ -1,6 +1,7 @@
 #include <task_h/ATSClientWorker.h>
 
 #include <QAbstractSocket>
+#include <QJsonDocument>
 #include <QJsonParseError>
 #include <QThreadPool>
 #include <SimRunningLogMsg.h>

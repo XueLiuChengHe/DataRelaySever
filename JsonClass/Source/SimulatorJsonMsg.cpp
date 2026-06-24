@@ -1,4 +1,5 @@
 #include <SimulatorJsonMsg.h>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QDebug>

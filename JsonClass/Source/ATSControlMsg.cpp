@@ -1,5 +1,6 @@
 #include "ATSConstrolMsg.h"
 
+#include <QJsonDocument>
 #include <QJsonObject>
 
 ATSControlMsg::ATSControlMsg()

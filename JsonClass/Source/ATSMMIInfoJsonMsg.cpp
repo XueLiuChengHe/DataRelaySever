@@ -1,5 +1,6 @@
 #include <ATSMMIInfoJsonMsg.h>
 
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QDebug>

@@ -1,5 +1,6 @@
 #include <ReplyJsonMsg.h>
 
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 

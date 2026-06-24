@@ -1,6 +1,7 @@
 #include <ATSStateControlJsonMsg.h>
 
 
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 

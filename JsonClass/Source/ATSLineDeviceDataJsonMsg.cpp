@@ -1,6 +1,7 @@
 #include <ATSLineDeviceDataJsonMsg.h>
 
 #include <QDateTime>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 

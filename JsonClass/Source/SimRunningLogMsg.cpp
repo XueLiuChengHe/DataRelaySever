@@ -1,5 +1,6 @@
 #include "SimRunningLogMsg.h"
 
+#include <QJsonDocument>
 #include <QJsonObject>
 
 SimRunningLog::SimRunningLog()

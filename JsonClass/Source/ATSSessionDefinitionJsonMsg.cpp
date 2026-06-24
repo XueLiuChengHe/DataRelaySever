@@ -2,6 +2,7 @@
 
 #include <QDateTime>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonParseError>
 #include <QDebug>
 

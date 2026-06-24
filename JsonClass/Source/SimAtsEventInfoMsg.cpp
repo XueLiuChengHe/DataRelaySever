@@ -1,5 +1,6 @@
 #include "SimAtsEventInfoMsg.h"
 
+#include <QJsonDocument>
 #include <QJsonObject>
 
 SimAtsEventInfoMsg::SimAtsEventInfoMsg()

@@ -1,5 +1,6 @@
 #include "minetohengnuoserver.h"
 
+#include <QJsonDocument>
 #include <QJsonParseError>
 #include <QSettings>
 
