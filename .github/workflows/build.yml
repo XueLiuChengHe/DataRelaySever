@@ -2,7 +2,7 @@ name: Build & Validate
 
 on:
   push:
-    branches: [main, master, HKDataRelaySever, "feature/*", "fix/*"]
+    branches: [main, master, DataRelaySever, "feature/*", "fix/*"]
   pull_request:
     branches: [main, master]
   workflow_dispatch:   # 允许手动触发
