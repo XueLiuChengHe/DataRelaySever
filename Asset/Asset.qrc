@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Icon">
+        <file alias="MaxSeverIcon">Icon/Sever.png</file>
+    </qresource>
+</RCC>

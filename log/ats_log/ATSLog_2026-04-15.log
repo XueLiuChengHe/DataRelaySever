@@ -1,0 +1,11 @@
+2026-04-15 18:21:13:837:{
+    "device_type": 2,
+    "message_seqnum": 630942,
+    "packet_type": "State_Control",
+    "payload": {
+        "control_type": "session_end"
+    },
+    "request_id": "1ac99186-7c2e-4928-b9e5-356f3c3def95",
+    "session_instance_id": "12395678"
+}
+已发送

@@ -1,0 +1,73 @@
+                    if(this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg.session_instance_id == "000"){
+                        this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg = ats_line_device_data_json_msg;
+                    }
+                    int count = 0;
+                    for(auto sign : this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg.turnout.keys()){
+//                        for(auto sign_rev : ats_line_device_data_json_msg.turnout.keys()){
+                        if(this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg.turnout.value(sign) != ats_line_device_data_json_msg.turnout.value(sign)){
+                            ats_data.changeTurnoutID[count] = sign.toInt();
+                            ats_data.changeTurnout[count] = ats_line_device_data_json_msg.turnout.value(sign) == "branch"? 1:0;
+                            this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->setChangeTurnoutData(ats_data);
+                            count++;
+                        }
+//                        }
+                    }
+                    count = 0;
+                    for(auto sign : this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg.signal.keys()){
+//                        for(auto sign_rev : ats_line_device_data_json_msg.signal.keys()){
+                        if(this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg.signal.value(sign) != ats_line_device_data_json_msg.signal.value(sign)){
+                            ats_data.changeSignalID[count] = sign.toInt();
+                            if(ats_line_device_data_json_msg.signal.value(sign) == "none"){
+                                ats_data.changeSignal[count] = 0;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "R"){
+                                ats_data.changeSignal[count] = 1;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "G"){
+                                ats_data.changeSignal[count] = 2;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "Y"){
+                                ats_data.changeSignal[count] = 3;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "W"){
+                                ats_data.changeSignal[count] = 5;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "B"){
+                                ats_data.changeSignal[count] = 8;
+                            }else if(ats_line_device_data_json_msg.signal.value(sign) == "RY"){
+                                ats_data.changeSignal[count] = 24;
+                            }else{
+
+                            }
+                            this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->setChangeSignalData(ats_data);
+                            count++;
+                        }
+//                        }
+                    }
+                    this->sim_train_id_simulator_session_map.value(sim_train_id_sign)->getSended_ats_json_msg()->ats_line_device_data_json_msg = ats_line_device_data_json_msg;
+
+
+    int changeTurnout [50];             // 变化的道岔数据
+    int changeTurnoutID [50];           // 变化的道岔ID
+    int changeSignal [50];              // 变化的信号灯数据
+    int changeSignalID [50];              // 变化的信号灯ID
+
+    void setChangeTurnoutData(const ATSData &ats_data);
+    void setChangeSignalData(const ATSData &ats_data);
+
+void ATSJsonMsg::setChangeTurnoutData(const ATSData &ats_data)
+{
+    for(int i = 0; i<50;i++){
+        this->ats_data.changeTurnout[i] = ats_data.changeTurnout[i];
+    }
+
+    for(int i = 0; i<50;i++){
+        this->ats_data.changeTurnoutID[i] = ats_data.changeTurnoutID[i];
+    }
+}
+
+void ATSJsonMsg::setChangeSignalData(const ATSData &ats_data)
+{
+    for(int i = 0; i<50;i++){
+        this->ats_data.changeSignal[i] = ats_data.changeSignal[i];
+    }
+
+    for(int i = 0; i<50;i++){
+        this->ats_data.changeSignalID[i] = ats_data.changeSignalID[i];
+    }
+}
