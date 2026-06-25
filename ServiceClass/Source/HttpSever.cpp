@@ -24,6 +24,7 @@ HttpSever::HttpSever(unsigned short Port,QObject *parent)
 
     QObject::connect(this,&HttpSever::newConnectionComing,this,[this](qintptr descriptor){
         if(this->revSocket != nullptr){
+            QObject::disconnect(this->revSocket, nullptr, this, nullptr);  // 先断开所有信号，防止 disconnected 打到新 socket
             this->revSocket->disconnectFromHost();
             this->revSocket->deleteLater();
             this->revSocket = nullptr;

@@ -159,13 +159,16 @@ ATSData ATSSIMFaultInfo::toATSData()
         }else{
             data.ats_sim_fault[5] = 0;
         }
-    }else if(this->fault_type == "PAU"){
-        if(this->fault_ctrl == "enable"){
-            data.ats_sim_fault[6] = 1;
-        }else{
-            data.ats_sim_fault[6] = 0;
-        }
     }
+
+    // 成都
+    // else if(this->fault_type == "PAU"){
+    //     if(this->fault_ctrl == "enable"){
+    //         data.ats_sim_fault[6] = 1;
+    //     }else{
+    //         data.ats_sim_fault[6] = 0;
+    //     }
+    // }
 
     // data.fault_param1 = this->fault_param1.toInt();
     // data.fault_param2 = this->fault_param2.toInt();

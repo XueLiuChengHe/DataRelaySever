@@ -41,7 +41,12 @@ QByteArray SimRunningLog::toJson() const
     // payload 部分
     // -------------------
     QJsonObject payloadObj;
-    payloadObj["log_message"] = this->log_message;
+
+    QJsonParseError error;
+    QJsonDocument docSign = QJsonDocument::fromJson(this->log_message.toUtf8(), &error);
+    QJsonObject obj = docSign.object();
+
+    payloadObj["log_message"] = obj.value("operationTime").toString() + "," + obj.value("operationModel").toString() + "," + obj.value("operationText").toString() + "," + obj.value("operationValue").toString() + "," + obj.value("timestamp").toString();
 
     // -------------------
     // 根对象（包含 Header）

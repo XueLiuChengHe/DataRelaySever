@@ -243,9 +243,9 @@ void ATSClientWorker::working()
 
     connect(this->revSimLogThread,&QThread::started,this->revSimLogWorker,&RevSimLogWorker::working);
     connect(this->revSimLogWorker,&RevSimLogWorker::simLogPaurseFinished,this,[this](const QString simLogMsg){
-        if(this->trainIDMapAllSimulatorSession[0] != nullptr){
-            if(this->trainIDMapAllSimulatorSession[0]->getSessionInstranceID() != "0"){
-                this->simRunningLogMsg.session_instance_id = this->trainIDMapAllSimulatorSession[0]->getSessionInstranceID();
+        if(this->trainIDMapAllSimulatorSession[3] != nullptr){
+            if(this->trainIDMapAllSimulatorSession[3]->getSessionInstranceID() != "0"){
+                this->simRunningLogMsg.session_instance_id = this->trainIDMapAllSimulatorSession[3]->getSessionInstranceID();
             }
         }
         this->simRunningLogMsg.log_message = simLogMsg;
@@ -359,19 +359,6 @@ void ATSClientWorker::working()
             reply_json.session_instance_id = atsStateControlMsg.session_instance_id;
 
             if(this->ats_websocket->isValid()){
-                // int i=  0;
-                // while(true){
-                //     if(this->simRunningLogMsg.session_instance_id != "0"){
-                //         this->ats_websocket->sendTextMessage(QString::fromUtf8(simRunningLogMsg.toJson()));
-                //         qInfo()<<"------------------------------------------------日志数据已发送到ATS---------------------------------------------------------";
-                //         break;
-                //     }
-                //     i++;
-                //     if(i > 100000){
-                //         i = 0;
-                //         break;
-                //     }
-                // }
                 this->ats_websocket->sendTextMessage(QString::fromUtf8(reply_json.toJson()));
                 qInfo()<<"------------------------------------------------回复数据已发送到ATS---------------------------------------------------------";
             }else{
